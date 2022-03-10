@@ -35,3 +35,16 @@ export default function AppFunctional(props) {
     </div>
   )
 }
+
+
+
+/* 
+Todo's:
+1. Up, down, right, left buttons must have functionality in order to move the highlighted square
+2. reset button needs to have functionality to reset state to original state 
+3. Coordinates need to update based on state and where the highlighted square is
+4. "You moved {numberOfTimes} should update based on how many times we moved"
+5. email form with submit button should be functional at bottom. Posts data to api?
+6. submit button does not reset state, but rather produces a message with the pre@ part of the email + win #someNumber
+7. If you try to move left, right, up and down outside of the 9 boxes, there will be a message produced saying "you can't go {direction}"
+*/
