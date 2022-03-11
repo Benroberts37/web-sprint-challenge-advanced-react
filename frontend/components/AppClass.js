@@ -98,8 +98,24 @@ export default class AppClass extends React.Component {
             }   
   }
 
-  handleSubmit() {
+  handleSubmitPost = (evt) => {
+    evt.preventDefault()
+    const dataToSubmit = {
+      x:this.state.x,
+      y:this.state.y,
+      steps:this.state.steps,
+      email:this.state.email
+    }
 
+    axios.post(URL, dataToSubmit)
+      .then(res => {
+        this.setState({...this.state, message: res.data.message, submit: true, popUp: ''})
+        this.handleClear()
+      })
+      .catch(err => {
+        this.setState({...this.state, message: err.response.data.message, submit: true, popUp: ''})
+      })
+      this.setState({...this.state, input: evt.target.handleClear()})
   }
 
   handleEmail = (evt) => {
@@ -113,7 +129,7 @@ export default class AppClass extends React.Component {
 
 
   render() {
-    const {x, y, movements} = this.props
+    const {x, y, movements} = this.state
 
     const { className } = this.props
     return (
