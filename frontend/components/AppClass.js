@@ -20,7 +20,6 @@ export default class AppClass extends React.Component {
     this.state = initialState
   }
 
-
   handleLeftToggle() {
 
   }
@@ -33,8 +32,23 @@ export default class AppClass extends React.Component {
 
   }
 
-  handleDownToggle() {
-
+  handleDownToggle = () => {
+    if (this.state.y === 3) {
+      this.setState({...this.state, 
+              goneTooFar: true, 
+              popUp:"You can't go down", 
+              message: ""})
+    }
+              else { this.setState((state) => ({
+                ...this.state,
+                y: state.y+1,
+                movements: this.movements += 1,
+                goneTooFar: false,
+                popUp: '',
+                message: '',
+                submit: false,
+              }))
+            }   
   }
 
   handleSubmit() {
