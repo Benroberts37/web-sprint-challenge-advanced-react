@@ -123,15 +123,15 @@ export default class AppClass extends React.Component {
           <h3 id="steps">You moved {movements} times</h3>
         </div>
         <div id="grid">
-          {x===1 && y===1} ? <div className="square active">B</div> : <div className="square"></div>
-          {x===1 && y===2} ? <div className="square active">B</div> : <div className="square"></div>
-          {x===1 && y===3} ? <div className="square active">B</div> : <div className="square"></div>
-          {x===2 && y===1} ? <div className="square active">B</div> : <div className="square"></div>
-          {x===2 && y===2} ? <div className="square active">B</div> : <div className="square"></div>
-          {x===2 && y===3} ? <div className="square active">B</div> : <div className="square"></div>
-          {x===3 && y===1} ? <div className="square active">B</div> : <div className="square"></div>
-          {x===3 && y===2} ? <div className="square active">B</div> : <div className="square"></div>
-          {x===3 && y===3} ? <div className="square active">B</div> : <div className="square"></div>
+          {x===1 && y===1 ? <div className="square active">B</div> : <div className="square"></div>}
+          {x===1 && y===2 ? <div className="square active">B</div> : <div className="square"></div>}
+          {x===1 && y===3 ? <div className="square active">B</div> : <div className="square"></div>}
+          {x===2 && y===1 ? <div className="square active">B</div> : <div className="square"></div>}
+          {x===2 && y===2 ? <div className="square active">B</div> : <div className="square"></div>}
+          {x===2 && y===3 ? <div className="square active">B</div> : <div className="square"></div>}
+          {x===3 && y===1 ? <div className="square active">B</div> : <div className="square"></div>}
+          {x===3 && y===2 ? <div className="square active">B</div> : <div className="square"></div>}
+          {x===3 && y===3 ? <div className="square active">B</div> : <div className="square"></div>}
         </div>
         <div className="info">
           {this.state.goneTooFar ? <h3 id="message">{this.state.popUp}</h3> : <h3 id="message"></h3>}
