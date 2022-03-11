@@ -20,16 +20,63 @@ export default class AppClass extends React.Component {
     this.state = initialState
   }
 
-  handleLeftToggle() {
-
+  handleLeftToggle = () => {
+    if(this.state.x===1) {
+      this.setState({...this.state,
+        goneTooFar: true, 
+        popUp:"You can't go left", 
+        message: ""
+      })
+    } 
+    else { this.setState((state) => ({
+      ...this.state,
+      x: state.x-1,
+      movements: state.movements + 1,
+      goneTooFar: false,
+      popUp: '',
+      message: '',
+      submit: false,
+    }))
+  }   
   }
 
-  handleRightToggle() {
-
+  handleRightToggle = () => {
+    if(this.state.x===3) {
+      this.setState({...this.state,
+        goneTooFar: true, 
+        popUp:"You can't go right", 
+        message: ""
+      })
+    } 
+    else { this.setState((state) => ({
+      ...this.state,
+      x: state.x + 1,
+      movements: state.movements + 1,
+      goneTooFar: false,
+      popUp: '',
+      message: '',
+      submit: false,
+    }))
+  }   
   }
 
-  handleUpToggle() {
-
+  handleUpToggle = () => {
+    if (this.state.y ===1) {
+      this.setState({...this.state,
+        goneTooFar: true, 
+        popUp:"You can't go up", 
+        message: ""})
+    }
+    else { this.setState((state) => ({
+      ...this.state,
+      y: state.y-1,
+      movements: state.movements + 1,
+      goneTooFar: false,
+      popUp: '',
+      message: '',
+      submit: false,
+    }))
+  }   
   }
 
   handleDownToggle = () => {
@@ -42,7 +89,7 @@ export default class AppClass extends React.Component {
               else { this.setState((state) => ({
                 ...this.state,
                 y: state.y+1,
-                movements: this.movements += 1,
+                movements: state.movements + 1,
                 goneTooFar: false,
                 popUp: '',
                 message: '',
@@ -55,8 +102,8 @@ export default class AppClass extends React.Component {
 
   }
 
-  handleEmail() {
-
+  handleEmail = (evt) => {
+    this.setState({...this.state, email: evt.target.value})
   }
 
   handleClear() {
