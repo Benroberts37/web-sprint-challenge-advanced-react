@@ -1,18 +1,56 @@
 import React from 'react'
 import axios from 'axios'
 
-const URL = ""
+const URL = "http://localhost:9000/api/result"
 const initialState = {
   x:2,
   y:2,
   movements:0,
   email:'',
   goneTooFar: false,
+  popUp: '',
   message: '',
   submit:false,
 }
 
+
 export default class AppClass extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = initialState
+  }
+
+
+  handleLeftToggle() {
+
+  }
+
+  handleRightToggle() {
+
+  }
+
+  handleUpToggle() {
+
+  }
+
+  handleDownToggle() {
+
+  }
+
+  handleSubmit() {
+
+  }
+
+  handleEmail() {
+
+  }
+
+  handleClear() {
+    this.setState(initialState)
+  }
+
+
+
   render() {
     const { className } = this.props
     return (
