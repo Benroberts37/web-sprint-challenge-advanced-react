@@ -1,4 +1,16 @@
 import React from 'react'
+import axios from 'axios'
+
+const URL = ""
+const initialState = {
+  x:2,
+  y:2,
+  movements:0,
+  email:'',
+  goneTooFar: false,
+  message: '',
+  submit:false,
+}
 
 export default class AppClass extends React.Component {
   render() {
