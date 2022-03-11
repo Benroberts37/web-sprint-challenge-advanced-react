@@ -47,4 +47,5 @@ Todo's:
 5. email form with submit button should be functional at bottom. Posts data to api?
 6. submit button does not reset state, but rather produces a message with the pre@ part of the email + win #someNumber
 7. If you try to move left, right, up and down outside of the 9 boxes, there will be a message produced saying "you can't go {direction}"
+8. Do this for functional and class based components 
 */

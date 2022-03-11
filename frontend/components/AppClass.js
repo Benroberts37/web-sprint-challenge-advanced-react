@@ -106,7 +106,7 @@ export default class AppClass extends React.Component {
     this.setState({...this.state, email: evt.target.value})
   }
 
-  handleClear() {
+  handleClear = () => {
     this.setState(initialState)
   }
 
@@ -135,11 +135,11 @@ export default class AppClass extends React.Component {
           <h3 id="message"></h3>
         </div>
         <div id="keypad">
-          <button id="left">LEFT</button>
-          <button id="up">UP</button>
-          <button id="right">RIGHT</button>
-          <button id="down">DOWN</button>
-          <button id="reset">reset</button>
+          <button onClick={this.handleLeftToggle} id="left">LEFT</button>
+          <button onClick={this.handleUpToggle} id="up">UP</button>
+          <button onClick={this.handleRightToggle} id="right">RIGHT</button>
+          <button onClick={this.handleDownToggle} id="down">DOWN</button>
+          <button onClick={this.handleClear} id="reset">reset</button>
         </div>
         <form>
           <input id="email" type="email" placeholder="type email"></input>
