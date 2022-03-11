@@ -113,26 +113,29 @@ export default class AppClass extends React.Component {
 
 
   render() {
+    const {x, y, movements} = this.props
+
     const { className } = this.props
     return (
       <div id="wrapper" className={className}>
         <div className="info">
-          <h3 id="coordinates">Coordinates (2, 2)</h3>
-          <h3 id="steps">You moved 0 times</h3>
+          <h3 id="coordinates">Coordinates ({x}, {y})</h3>
+          <h3 id="steps">You moved {movements} times</h3>
         </div>
         <div id="grid">
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square active">B</div>
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square"></div>
-          <div className="square"></div>
+          {x===1 && y===1} ? <div className="square active">B</div> : <div className="square"></div>
+          {x===1 && y===2} ? <div className="square active">B</div> : <div className="square"></div>
+          {x===1 && y===3} ? <div className="square active">B</div> : <div className="square"></div>
+          {x===2 && y===1} ? <div className="square active">B</div> : <div className="square"></div>
+          {x===2 && y===2} ? <div className="square active">B</div> : <div className="square"></div>
+          {x===2 && y===3} ? <div className="square active">B</div> : <div className="square"></div>
+          {x===3 && y===1} ? <div className="square active">B</div> : <div className="square"></div>
+          {x===3 && y===2} ? <div className="square active">B</div> : <div className="square"></div>
+          {x===3 && y===3} ? <div className="square active">B</div> : <div className="square"></div>
         </div>
         <div className="info">
-          <h3 id="message"></h3>
+          {this.state.goneTooFar ? <h3 id="message">{this.state.popUp}</h3> : <h3 id="message"></h3>}
+          {this.state.submit ? <h3 id="message">{this.state.message}</h3> : <h3 id="message"></h3>}
         </div>
         <div id="keypad">
           <button onClick={this.handleLeftToggle} id="left">LEFT</button>
