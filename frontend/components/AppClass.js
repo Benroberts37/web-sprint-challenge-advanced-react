@@ -138,7 +138,7 @@ export default class AppClass extends React.Component {
       <div id="wrapper" className={className}>
         <div className="info">
           <h3 id="coordinates">Coordinates ({y},{x})</h3>
-          {<h3 id="steps">You moved {steps} times</h3>}
+          {steps===1?<h3 id="steps">You moved {steps} time</h3> : <h3 id="steps">You moved {steps} times</h3>}
         </div>
         <div id="grid">
           {x===1 && y===1 ? <div className="square active">B</div> : <div className="square"></div>}
