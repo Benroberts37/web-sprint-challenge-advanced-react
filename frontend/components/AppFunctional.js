@@ -4,6 +4,7 @@ import useToggleHook from './useTogglehook';
 export default function AppFunctional(props) {
 
  const [onSubmit, emailHandler, handleDownToggle, handleUpToggle, handleLeftToggle, handleRightToggle, handleClear, state] = useToggleHook();
+ 
  const {x, y, goneTooFar, steps, popUp, message, submit} = state;
 
 

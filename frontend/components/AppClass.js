@@ -2,6 +2,7 @@ import React from 'react'
 import axios from 'axios'
 
 const URL = "http://localhost:9000/api/result"
+
 const initialState = {
   x:2,
   y:2,
@@ -119,7 +120,7 @@ export default class AppClass extends React.Component {
 
     axios.post(URL, dataToSubmit)
       .then(res => {
-        this.setState({...this.state, message: res.data.message, submit: true, popUp: ''})
+        this.setState({...this.state, message: res.data.message, submit: true, popUp: res.data.message})
         this.handleClear()
       })
       .catch(err => {
@@ -162,7 +163,7 @@ export default class AppClass extends React.Component {
           <button onClick={this.handleDownToggle} id="down">DOWN</button>
           <button onClick={this.handleClear} id="reset">reset</button>
         </div>
-        <form onSubmit = {this.onSubmit}>
+        <form id="emailForm" onSubmit = {this.onSubmit}>
           <input onChange={this.emailHandler} id="email" type="email" placeholder="type email"></input>
           <input id="submit" type="submit"></input>
         </form>
