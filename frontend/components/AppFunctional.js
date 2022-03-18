@@ -1,44 +1,30 @@
-import React from 'react'
-import useToggleHook from './useTogglehook';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
 export default function AppFunctional(props) {
-
- const [onSubmit, emailHandler, handleDownToggle, handleUpToggle, handleLeftToggle, handleRightToggle, handleClear, state] = useToggleHook();
- 
- const {x, y, goneTooFar, steps, popUp, message, submit} = state;
-
-
+  
 
   return (
-    <div id="wrapper" className={props.className}>
+    <div id="wrapper">
       <div className="info">
-        <h3 id="coordinates">Coordinates ({x}, {y})</h3>
-        {<h3 id="steps">You moved {steps} times</h3>}
+        <h3 id="coordinates">Coordinates</h3>
+        <h3 id="steps">You moved</h3>
       </div>
       <div id="grid">
-        {x===1 && y===1 ? <div className="square active">B</div> : <div className="square"></div>}
-        {x===1 && y===2 ? <div className="square active">B</div> : <div className="square"></div>}
-        {x===1 && y===3 ? <div className="square active">B</div> : <div className="square"></div>}
-        {x===2 && y===1 ? <div className="square active">B</div> : <div className="square"></div>}
-        {x===2 && y===2 ? <div className="square active">B</div> : <div className="square"></div>}
-        {x===2 && y===3 ? <div className="square active">B</div> : <div className="square"></div>}
-        {x===3 && y===1 ? <div className="square active">B</div> : <div className="square"></div>}
-        {x===3 && y===2 ? <div className="square active">B</div> : <div className="square"></div>}
-        {x===3 && y===3 ? <div className="square active">B</div> : <div className="square"></div>}
+
       </div>
       <div className="info">
-        {goneTooFar ? <h3 id="message">{popUp}</h3> : <h3 id="message"></h3>}
-        {submit ? <h3 id="message">{message}</h3> : <h3 id="message"></h3>}
+        <h3 id="message"></h3>
       </div>
       <div id="keypad">
-        <button onClick={handleLeftToggle} id="left">LEFT</button>
-        <button onClick={handleUpToggle} id="up">UP</button>
-        <button onClick={handleRightToggle} id="right">RIGHT</button>
-        <button onClick={handleDownToggle} id="down">DOWN</button>
-        <button onClick={handleClear} id="reset">reset</button>
+        <button id="left">LEFT</button>
+        <button id="up">UP</button>
+        <button id="right">RIGHT</button>
+        <button id="down">DOWN</button>
+        <button id="reset">reset</button>
       </div>
-      <form onSubmit = {onSubmit}>
-        <input onChange={emailHandler} id="email" type="email" placeholder="type email"></input>
+      <form>
+        <input id="email" type="email" placeholder="type email"></input>
         <input id="submit" type="submit"></input>
       </form>
     </div>
