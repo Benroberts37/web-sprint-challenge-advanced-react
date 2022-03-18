@@ -6,10 +6,21 @@ export default class AppClass extends React.Component {
   starterGrid = [[0, 0, 0], 
                  [0, 1, 0], 
                  [0, 0, 0]]
-  initialState = { totalSteps: 0, grid: this.starterGrid, message: null, emailInput: '' }
+  initialState = { steps: 0, grid: this.starterGrid, message: null, emailField: '' }
   constructor(props) {
     super(props)
     this.state = this.initialState
+  }
+
+  //Creating a reset button to put things back into initial state
+  reset = () => {
+    this.setState(this.initialState)
+  }
+
+  //Creating a function to handle the email input 
+  emailInput = () => {
+    const {value} = event.target
+    this.setState({...this.state, emailField: value})
   }
 
 
