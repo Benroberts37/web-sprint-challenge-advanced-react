@@ -40,7 +40,20 @@ export default class AppClass extends React.Component {
     return (`(${x}, ${y})`)
   }
 
-  
+  //Creating a function to allow the B square to move, and to update the steps
+  moveBSquare = (x, y) => {
+    this.setState({...this.state, grid: this.state.grid.map((xArray, i) =>
+      xArray.map((_, j) => (i === x && j === y) ? true : false)
+      ), 
+      steps: this.state.steps + 1
+    })
+  }
+
+  //Now we need to create a function that will make the buttons work and put the B square in the right spot
+  directionToggle = direction => {
+    let [x, y] = this.findBCoordinates(this.st)
+    a
+  }
 
 
   render() {
