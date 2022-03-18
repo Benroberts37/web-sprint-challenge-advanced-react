@@ -23,6 +23,24 @@ export default class AppClass extends React.Component {
     this.setState({...this.state, emailField: value})
   }
 
+  //Creating a function to find the "B" or active square on the grid 
+  findBCoordinates = grid => {
+    for (let x = 0; x < grid.length; x++) {
+      for (let y = 0; y < grid.length; y++) {
+        if (grid[x][y]) return [x][y]
+      }
+    }
+  }
+
+  //Now creating a function to show the user the coordinates they are on
+  //This is coming from the readMe "important notes section"
+  //We are getting coordinates from the state of the grid 
+  showCoordinates = grid => {
+    const [x,y] = this.findBCoordinates(grid)
+    return (`(${x}, ${y})`)
+  }
+
+  
 
 
   render() {
