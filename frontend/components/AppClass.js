@@ -37,7 +37,7 @@ export default class AppClass extends React.Component {
   //We are getting coordinates from the state of the grid 
   showCoordinates = grid => {
     const [x,y] = this.findBCoordinates(grid)
-    return (`(${x}, ${y})`)
+    return `(${x+1}, ${y+1})`
   }
 
   //Creating a function to allow the B square to move, and to update the steps
@@ -51,9 +51,38 @@ export default class AppClass extends React.Component {
 
   //Now we need to create a function that will make the buttons work and put the B square in the right spot
   directionToggle = direction => {
-    let [x, y] = this.findBCoordinates(this.st)
-    a
-  }
+    let [x, y] = this.findBCoordinates(this.state.grid)
+
+    if (direction === 'down' && x < 2) {
+      this.moveBSquare(x + 1, y)
+    } else if (direction === 'up' && x > 0){
+        this.moveBSquare(x + 1, y)
+    } else if (direction === 'right' && y < 2) {
+        this.moveBSquare(x + 1, y)
+    } else if (direction === 'left' && y > 0){
+       
+        this.moveBSquare(x + 1, y);
+    } else {
+      this.setState({...this.state, message: `"You can't go ${direction}"`})
+    }
+    }
+
+    //Last function we need to create is the axios call to post our data and then put the email field back to blank
+    //We need to show the user the message based on the payload that we send  
+
+    onSubmit = e => {
+      e.preventDefault()
+      const [y,x] = this.findBCoordinates(this.state.grid)
+      const payload = { "x": x + 1 , 
+                        "y": y + 1 , 
+                        "steps": this.state.steps, 
+                        "email": this.state.emailField }
+
+      axios.post(this.URL, payload)
+        .then(res => this.setState({...this.state, message: res.data.message}))
+        .catch(err => this.setState({...this.state, message: err.res.data.message}))
+        this.setState({...this.state, emailField: ''})
+    }
 
 
   render() {
@@ -61,24 +90,32 @@ export default class AppClass extends React.Component {
     return (
       <div id="wrapper" className={className}>
         <div className="info">
-          <h3 id="coordinates">Coordinates </h3>
-          <h3 id="steps">You moved </h3>
+          <h3 id="coordinates">Coordinates {this.showCoordinates(this.state.grid)} </h3>
+          <h3 id="steps">You moved {this.state.steps} time{this.state.steps === 1 ? null : "s"} </h3>
         </div>
         <div id="grid">
+          {
+            this.state.grid.map((x, i) => {
+              return x.map((square, j) => {
+                const id = i * this.state.grid.length + j
+                return square ? <div className = "square active" key = {id}>B</div>:<div className = "square" key = {id}></div>
+              })
+            })
+          }
 
         </div>
         <div className="info">
-          <h3 id="message"></h3>
+          <h3 id="message">{this.state.message}</h3>
         </div>
         <div id="keypad">
-          <button id="left">LEFT</button>
-          <button id="up">UP</button>
-          <button id="right">RIGHT</button>
-          <button id="down">DOWN</button>
-          <button id="reset">reset</button>
+          <button id="left" onClick={() => this.directionToggle('left')}>LEFT</button>
+          <button id="up" onClick={() => this.directionToggle('up')}>UP</button>
+          <button id="right" onClick={() => this.directionToggle('right')}>RIGHT</button>
+          <button id="down" onClick={() => this.directionToggle('down')}>DOWN</button>
+          <button id="reset" onClick={this.reset}>reset</button>
         </div>
-        <form >
-          <input id="email" type="email" placeholder="type email"></input>
+        <form onSubmit = {this.onSubmit}>
+          <input id="email" type="email" placeholder="type email" onChange = {this.emailInput} value = {this.state.inputField}></input>
           <input id="submit" type="submit"></input>
         </form>
       </div>
