@@ -18,16 +18,16 @@ export default class AppClass extends React.Component {
   }
 
   //Creating a function to handle the email input 
-  emailInput = () => {
-    const {value} = event.target
+  emailInput = e => {
+    const {value} = e.target
     this.setState({...this.state, emailField: value})
   }
 
   //Creating a function to find the "B" or active square on the grid 
   findBCoordinates = grid => {
-    for (let x = 0; x < grid.length; x++) {
-      for (let y = 0; y < grid.length; y++) {
-        if (grid[x][y]) return [x][y]
+    for (let row = 0; row < grid.length; row++) {
+      for (let column = 0; column < grid.length; column++) {
+        if (grid[row][column]) return [row][column]
       }
     }
   }
@@ -36,32 +36,32 @@ export default class AppClass extends React.Component {
   //This is coming from the readMe "important notes section"
   //We are getting coordinates from the state of the grid 
   showCoordinates = grid => {
-    const [x,y] = this.findBCoordinates(grid)
-    return `(${x+1}, ${y+1})`
+    const [row,column] = this.findBCoordinates(grid)
+    return `(${column+1}, ${row+1})`
   }
 
   //Creating a function to allow the B square to move, and to update the steps
-  moveBSquare = (x, y) => {
-    this.setState({...this.state, grid: this.state.grid.map((xArray, i) =>
-      xArray.map((_, j) => (i === x && j === y) ? true : false)
+  moveBSquare = (row, column) => {
+    this.setState({...this.state, grid: this.state.grid.map((rowArray, i) =>
+      rowArray.map((_, j) => (i === row && j === column) ? true : false)
       ), 
-      steps: this.state.steps + 1
+      steps: this.state.steps + 1,
+      message: null
     })
   }
 
   //Now we need to create a function that will make the buttons work and put the B square in the right spot
   directionToggle = direction => {
-    let [x, y] = this.findBCoordinates(this.state.grid)
+    let [row, column] = this.findBCoordinates(this.state.grid)
 
-    if (direction === 'down' && x < 2) {
-      this.moveBSquare(x + 1, y)
-    } else if (direction === 'up' && x > 0){
-        this.moveBSquare(x + 1, y)
-    } else if (direction === 'right' && y < 2) {
-        this.moveBSquare(x + 1, y)
-    } else if (direction === 'left' && y > 0){
-       
-        this.moveBSquare(x + 1, y);
+    if (direction === 'down' && row < 2) {
+      this.moveBSquare(row + 1, column)
+    } else if (direction === 'up' && row > 0){
+        this.moveBSquare(row + 1, column)
+    } else if (direction === 'right' && column < 2) {
+        this.moveBSquare(row, column + 1)
+    } else if (direction === 'left' && column > 0){
+        this.moveBSquare(row, column - 1);
     } else {
       this.setState({...this.state, message: `"You can't go ${direction}"`})
     }
