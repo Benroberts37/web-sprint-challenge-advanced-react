@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 export default function AppFunctional(props) {
-  URL = 'http://localhost:9000/api/result'
-  starterGrid = [[0, 0, 0], 
+  const URL = 'http://localhost:9000/api/result'
+  const starterGrid = [[0, 0, 0], 
                  [0, 1, 0], 
                  [0, 0, 0]]
 
@@ -12,8 +12,8 @@ export default function AppFunctional(props) {
   const [message, setMessage] = useState()
   const [emailField, setEmailField] = useState()
 
-//copying and pasting over from AppClass
-  findBCoordinates = grid => {
+
+  const findBCoordinates = grid => {
     for (let row = 0; row < grid.length; row++) {
       for (let column = 0; column < grid.length; column++) {
         if (grid[row][column]) return [row][column]
@@ -21,33 +21,32 @@ export default function AppFunctional(props) {
     }
   }
 
-  showCoordinates = grid => {
-    const [row,column] = this.findBCoordinates(grid)
+  const showCoordinates = grid => {
+    const [row,column] = findBCoordinates(grid)
     return `(${column+1}, ${row+1})`
   }
 
-  moveBSquare = (row, column) => {
-    this.setState({...this.state, grid: this.state.grid.map((rowArray, i) =>
-      rowArray.map((_, j) => (i === row && j === column) ? true : false)
-      ), 
-      steps: this.state.steps + 1,
-      message: null
-    })
+  const moveBSquare = (row, column) => {
+    setGrid(grid.map((rowArray, i) => 
+      rowArray.map((_, j) => (i === row && j === column) ? true: false)
+    ))
+    setSteps(steps + 1)
+    setMessage()
   }
 
-  directionToggle = direction => {
-    let [row, column] = this.findBCoordinates(this.state.grid)
+  const directionToggle = direction => {
+    let [row, column] = findBCoordinates(grid)
 
     if (direction === 'down' && row < 2) {
-      this.moveBSquare(row + 1, column)
+      moveBSquare(row + 1, column)
     } else if (direction === 'up' && row > 0){
-        this.moveBSquare(row + 1, column)
+        moveBSquare(row + 1, column)
     } else if (direction === 'right' && column < 2) {
-        this.moveBSquare(row, column + 1)
+        moveBSquare(row, column + 1)
     } else if (direction === 'left' && column > 0){
-        this.moveBSquare(row, column - 1);
+        moveBSquare(row, column - 1);
     } else {
-      this.setState({...this.state, message: `"You can't go ${direction}"`})
+      setMessage(`You can't go ${direction}`)
     }
     }
 
@@ -64,7 +63,7 @@ export default function AppFunctional(props) {
       setEmailField(value)
     }
 
-    onSubmit = e => {
+    const onSubmit = e => {
       e.preventDefault()
       const [y,x] = showCoordinates(grid)
       const payload = { "x": x + 1 , 
@@ -72,7 +71,7 @@ export default function AppFunctional(props) {
                         "steps": steps,
                         "email": emailField, }
 
-      axios.post(this.URL, payload)
+      axios.post(URL, payload)
         .then(res => setMessage(res.data.message))
         .catch(err => setMessage(res.data.message))
         setEmailField('')
@@ -81,26 +80,34 @@ export default function AppFunctional(props) {
 
 
   return (
-    <div id="wrapper">
+    <div id="wrapper" className = {props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates</h3>
-        <h3 id="steps">You moved</h3>
+        <h3 id="coordinates">Coordinates {findBCoordinates(grid)}</h3>
+        <h3 id="steps">You moved {steps} time{steps ===1 ? null : "s"}</h3>
       </div>
       <div id="grid">
+        {
+          grid.map((row, i) => {
+            return row.map((square, j) => {
+              const id = i * grid.length + j
+              return square ? <div className = 'square active' key={id}>B</div> : <div className='square' key={id}></div>
+            })
+          })
+        }
 
       </div>
       <div className="info">
-        <h3 id="message"></h3>
+        <h3 id="message">{message}</h3>
       </div>
       <div id="keypad">
-        <button id="left">LEFT</button>
-        <button id="up">UP</button>
-        <button id="right">RIGHT</button>
-        <button id="down">DOWN</button>
-        <button id="reset">reset</button>
+      <button id="left" onClick={() => directionToggle('left')}>LEFT</button>
+          <button id="up" onClick={() => directionToggle('up')}>UP</button>
+          <button id="right" onClick={() => directionToggle('right')}>RIGHT</button>
+          <button id="down" onClick={() => directionToggle('down')}>DOWN</button>
+          <button id="reset" onClick={reset}>reset</button>
       </div>
-      <form>
-        <input id="email" type="email" placeholder="type email"></input>
+      <form onSubmit={onSubmit}>
+        <input id="email" type="email" placeholder="type email" onChange={emailInput} value = {emailField}></input>
         <input id="submit" type="submit"></input>
       </form>
     </div>
