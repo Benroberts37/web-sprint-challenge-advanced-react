@@ -89,8 +89,8 @@ export default class AppClass extends React.Component {
     return (
       <div id="wrapper" className={className}>
         <div className="info">
-          <h3 id="coordinates">Coordinates {this.showCoordinates(this.state.grid)} </h3>
-          <h3 id="steps">You moved {this.state.steps}time{this.state.steps === 1 ? null : "s"} </h3>
+          <h3 id="coordinates">Coordinates{this.showCoordinates(this.state.grid)}</h3>
+          <h3 id="steps">You moved {this.state.steps} time{this.state.steps === 1 ? null : "s"}</h3>
         </div>
         <div id="grid">
           {
