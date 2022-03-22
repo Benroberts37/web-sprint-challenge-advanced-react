@@ -18,7 +18,7 @@ export default class AppClass extends React.Component {
   }
 
   //Creating a function to handle the email input 
-  emailInput = e => {
+  emailInputHandler = e => {
     const {value} = e.target
     this.setState({...this.state, emailField: value})
   }
@@ -57,30 +57,29 @@ export default class AppClass extends React.Component {
     if (direction === 'down' && row < 2) {
       this.moveBSquare(row + 1, column)
     } else if (direction === 'up' && row > 0){
-        this.moveBSquare(row + 1, column)
+        this.moveBSquare(row - 1, column)
     } else if (direction === 'right' && column < 2) {
         this.moveBSquare(row, column + 1)
     } else if (direction === 'left' && column > 0){
         this.moveBSquare(row, column - 1);
     } else {
-      this.setState({...this.state, message: `"You can't go ${direction}"`})
+      this.setState({...this.state, message: `You can't go ${direction}`})
     }
     }
 
     //Last function we need to create is the axios call to post our data and then put the email field back to blank
     //We need to show the user the message based on the payload that we send  
 
-    onSubmit = e => {
+     onSubmit = (e) => {
       e.preventDefault()
       const [y,x] = this.findBCoordinates(this.state.grid)
       const payload = { "x": x + 1 , 
                         "y": y + 1 , 
                         "steps": this.state.steps, 
                         "email": this.state.emailField }
-
       axios.post(this.URL, payload)
-        .then(res => this.setState({...this.state, message: res.data.message}))
-        .catch(err => this.setState({...this.state, message: err.res.data.message}))
+        .then(response => this.setState({...this.state, message: response.data.message}))
+        .catch(error => this.setState({...this.state, message: error.response.data.message}))
         this.setState({...this.state, emailField: ''})
     }
 
@@ -91,7 +90,7 @@ export default class AppClass extends React.Component {
       <div id="wrapper" className={className}>
         <div className="info">
           <h3 id="coordinates">Coordinates {this.showCoordinates(this.state.grid)} </h3>
-          <h3 id="steps">You moved {this.state.steps} time{this.state.steps === 1 ? null : "s"} </h3>
+          <h3 id="steps">You moved {this.state.steps}time{this.state.steps === 1 ? null : "s"} </h3>
         </div>
         <div id="grid">
           {
@@ -115,7 +114,7 @@ export default class AppClass extends React.Component {
           <button id="reset" onClick={this.reset}>reset</button>
         </div>
         <form onSubmit = {this.onSubmit}>
-          <input id="email" type="email" placeholder="type email" onChange = {this.emailInput} value = {this.state.inputField}></input>
+          <input id="email" type="email" placeholder="type email" onChange = {this.emailInputHandler} value = {this.state.emailField}></input>
           <input id="submit" type="submit"></input>
         </form>
       </div>

@@ -65,15 +65,15 @@ export default function AppFunctional(props) {
 
     const onSubmit = e => {
       e.preventDefault()
-      const [y,x] = showCoordinates(grid)
+      const [y, x] = findBCoordinates(grid)
       const payload = { "x": x + 1 , 
                         "y": y + 1 , 
                         "steps": steps,
                         "email": emailField, }
 
       axios.post(URL, payload)
-        .then(res => setMessage(res.data.message))
-        .catch(err => setMessage(res.data.message))
+        .then(response => setMessage(response.data.message))
+        .catch(error => setMessage(error.response.data.message))
         setEmailField('')
     }
 
