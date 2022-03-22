@@ -27,7 +27,7 @@ export default class AppClass extends React.Component {
   findBCoordinates = grid => {
     for (let row = 0; row < grid.length; row++) {
       for (let column = 0; column < grid.length; column++) {
-        if (grid[row][column]) return [row][column]
+        if (grid[row][column]) return [row, column]
       }
     }
   }

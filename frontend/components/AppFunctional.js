@@ -4,26 +4,26 @@ import axios from 'axios'
 export default function AppFunctional(props) {
   const URL = 'http://localhost:9000/api/result'
   const starterGrid = [[0, 0, 0], 
-                 [0, 1, 0], 
-                 [0, 0, 0]]
+                       [0, 1, 0], 
+                       [0, 0, 0]]
 
   const [steps, setSteps] = useState(0)
   const [grid, setGrid] = useState(starterGrid)
   const [message, setMessage] = useState()
-  const [emailField, setEmailField] = useState()
+  const [emailField, setEmailField] = useState('')
 
 
   const findBCoordinates = grid => {
     for (let row = 0; row < grid.length; row++) {
       for (let column = 0; column < grid.length; column++) {
-        if (grid[row][column]) return [row][column]
+        if (grid[row][column]) return [row, column]
       }
     }
   }
 
   const showCoordinates = grid => {
     const [row,column] = findBCoordinates(grid)
-    return `(${column+1}, ${row+1})`
+    return `(${column + 1}, ${row + 1})`
   }
 
   const moveBSquare = (row, column) => {
@@ -40,7 +40,7 @@ export default function AppFunctional(props) {
     if (direction === 'down' && row < 2) {
       moveBSquare(row + 1, column)
     } else if (direction === 'up' && row > 0){
-        moveBSquare(row + 1, column)
+        moveBSquare(row - 1, column)
     } else if (direction === 'right' && column < 2) {
         moveBSquare(row, column + 1)
     } else if (direction === 'left' && column > 0){
@@ -50,9 +50,9 @@ export default function AppFunctional(props) {
     }
     }
 
-    const reset = () => {
-      setTotalSteps(0)
-      setGrid(initialGrid)
+    const handleReset = () => {
+      setSteps(0)
+      setGrid(starterGrid)
       setEmailField('')
       setMessage()
     }
@@ -82,7 +82,7 @@ export default function AppFunctional(props) {
   return (
     <div id="wrapper" className = {props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates {findBCoordinates(grid)}</h3>
+        <h3 id="coordinates">Coordinates {showCoordinates(grid)}</h3>
         <h3 id="steps">You moved {steps} time{steps ===1 ? null : "s"}</h3>
       </div>
       <div id="grid">
@@ -104,7 +104,7 @@ export default function AppFunctional(props) {
           <button id="up" onClick={() => directionToggle('up')}>UP</button>
           <button id="right" onClick={() => directionToggle('right')}>RIGHT</button>
           <button id="down" onClick={() => directionToggle('down')}>DOWN</button>
-          <button id="reset" onClick={reset}>reset</button>
+          <button id="reset" onClick={handleReset}>reset</button>
       </div>
       <form onSubmit={onSubmit}>
         <input id="email" type="email" placeholder="type email" onChange={emailInput} value = {emailField}></input>
