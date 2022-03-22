@@ -1,52 +1,35 @@
 // Write your tests here
 import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
 import AppClass from './AppClass';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
 
 
+beforeEach (() => {
+  render(<AppClass />);
+})
 
 test('sanity', () => {
-  expect(true).toBe(false);
+  expect(true).toBe(true);
 })
 
-
-test('renders the left toggle button', () => {
-  render(<AppClass />);
-
-  const leftToggle = screen.queryByText('LEFT');
-  expect(leftToggle).toBeVisible();
-  expect(leftToggle).toBeInTheDocument();
+test ("test if the down button works", () => {
+  fireEvent.click(screen.getByText('DOWN'))
+  expect(screen.queryByText("Coordinates (2,3"))
 })
 
-test('renders the right toggle button', () => {
-  render(<AppClass />);
-
-  const rightToggle = screen.queryByText('RIGHT');
-  expect(rightToggle).toBeVisible();
-  expect(rightToggle).toBeInTheDocument();
+test ("test if the up button works", () => {
+  fireEvent.click(screen.getByText('UP'))
+  expect(screen.queryByText("Coordinates (2,1"))
 })
 
-test('The type your email box exists', () => {
-  render(<AppClass />);
-
-  const typeEmail = screen.getPlaceholderText('type email');
-  expect(typeEmail).toBeVisible();
-  expect(typeEmail).toBeInTheDocument();
+test ("test if the right button works", () => {
+  fireEvent.click(screen.getByText('RIGHT'))
+  expect(screen.queryByText("Coordinates (3,2"))
 })
 
-test('Shows the user how many times they have moved', () => {
-  render(<AppClass />);
-
-  const movementCounter = screen.queryByText('You move 0 times');
-  expect(movementCounter).toBeVisible();
-  expect(movementCounter).toBeInTheDocument();
+test ("test if the left button works", () => {
+  fireEvent.click(screen.getByText('LEFT'))
+  expect(screen.queryByText("Coordinates (1,2"))
 })
 
-test('Shows the user what coordinates of the box they are on', () => {
-  render(<AppClass />);
-
-  const coordinates = screen.queryByText('Coordinates (2, 2)');
-  expect(coordinates).toBeVisible();
-  expect(coordinates).toBeInTheDocument();
-})
